@@ -42,13 +42,14 @@ def get_all_links(page):
             break
     return links
 
-#The crawl is the thing that navigates between pages. It has a list tocrawl and crawled to avoid crawling repeated pages. 
-def crawl_web(seed):
+#The crawl is the thing that navigates between pages. It has a list tocrawl and crawled to avoid crawling repeated pages.
+#We recieve max_pages to have a limit of pages to crawl and don't go on forever. We use it with len(crawled) to make sure it stops.
+def crawl_web(seed,max_pages):
     tocrawl = [seed]
     crawled = []
     while tocrawl:
         page = tocrawl.pop()
-        if page not in crawled:
+        if page not in crawled and len(crawled)<max_pages :
             union (tocrawl, get_all_links(get_page(page))
             #We have to use get_page to get the actual content of the page and then extract all the links. 
     return crawled
